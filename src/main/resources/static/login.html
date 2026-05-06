@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SmartJob</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#6366f1', secondary: '#a855f7' },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], poppins: ['Poppins', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 font-sans h-screen flex items-center justify-center overflow-hidden">
+
+    <div class="w-full h-full flex flex-col md:flex-row">
+        <!-- Left Side: Illustration & Branding -->
+        <div class="hidden md:flex md:w-1/2 btn-gradient p-12 flex-col justify-between text-white relative overflow-hidden">
+            <div class="relative z-10">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center text-white">
+                        <i class="fas fa-briefcase text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold font-poppins">SmartJob</span>
+                </a>
+            </div>
+
+            <div class="relative z-10 space-y-6 max-w-md">
+                <h1 class="text-5xl font-extrabold font-poppins leading-tight">Welcome Back to the Future of Work.</h1>
+                <p class="text-indigo-100 text-lg leading-relaxed">
+                    Log in to access your personalized job matches and track your career progress with AI.
+                </p>
+            </div>
+
+            <div class="relative z-10 flex items-center space-x-4">
+                <div class="flex -space-x-2">
+                    <img src="https://i.pravatar.cc/100?u=4" class="w-8 h-8 rounded-full border-2 border-white/20">
+                    <img src="https://i.pravatar.cc/100?u=5" class="w-8 h-8 rounded-full border-2 border-white/20">
+                    <img src="https://i.pravatar.cc/100?u=6" class="w-8 h-8 rounded-full border-2 border-white/20">
+                </div>
+                <span class="text-sm font-medium text-indigo-100">Joined by 10k+ professionals this month</span>
+            </div>
+
+            <!-- Background Shapes -->
+            <div class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -mr-48 -mt-48 blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-indigo-900/20 rounded-full -ml-48 -mb-48 blur-3xl"></div>
+        </div>
+
+        <!-- Right Side: Login Form -->
+        <div class="w-full md:w-1/2 bg-white flex items-center justify-center p-8 md:p-16 overflow-y-auto">
+            <div class="max-w-md w-full space-y-8 animate-fadeIn">
+                <div class="text-center md:text-left">
+                    <h2 class="text-3xl font-extrabold text-slate-900 font-poppins">Sign In</h2>
+                    <p class="text-slate-500 mt-2">Enter your credentials to access your account</p>
+                </div>
+
+                <!-- Social Logins -->
+                <div class="grid grid-cols-2 gap-4">
+                    <button class="flex items-center justify-center space-x-2 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors font-semibold text-slate-700">
+                        <i class="fab fa-google text-red-500"></i>
+                        <span>Google</span>
+                    </button>
+                    <button class="flex items-center justify-center space-x-2 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors font-semibold text-slate-700">
+                        <i class="fab fa-github text-slate-900"></i>
+                        <span>GitHub</span>
+                    </button>
+                </div>
+
+                <div class="relative flex items-center py-4">
+                    <div class="flex-grow border-t border-slate-200"></div>
+                    <span class="flex-shrink mx-4 text-slate-400 text-sm">or login with email</span>
+                    <div class="flex-grow border-t border-slate-200"></div>
+                </div>
+
+                <form action="/perform_login" method="POST" class="space-y-6">
+                    <div class="space-y-2">
+                        <label for="email" class="text-sm font-bold text-slate-700">Email Address</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+						<input type="email" id="email" name="username" placeholder="name@company.com" class="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium" required>                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <label for="password" class="text-sm font-bold text-slate-700">Password</label>
+                            <a href="#" class="text-sm font-bold text-indigo-600 hover:text-indigo-500">Forgot?</a>
+                        </div>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            <input type="password" id="password" name="password" placeholder="••••••••" class="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium" required>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember" class="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+                        <label for="remember" class="ml-2 text-sm font-medium text-slate-600">Remember me for 30 days</label>
+                    </div>
+
+                    <button type="submit" class="w-full btn-gradient text-white py-4 rounded-xl font-bold shadow-xl shadow-indigo-200 flex items-center justify-center space-x-2">
+                        <span>Sign In</span>
+                        <i class="fas fa-sign-in-alt"></i>
+                    </button>
+                </form>
+
+                <p class="text-center text-slate-600 font-medium">
+                    Don't have an account? <a href="register.html" class="text-indigo-600 hover:text-indigo-500 font-bold">Sign Up</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

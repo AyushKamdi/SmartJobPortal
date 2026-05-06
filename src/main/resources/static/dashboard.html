@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SmartJob Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#6366f1', secondary: '#a855f7' },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], poppins: ['Poppins', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 font-sans text-slate-900 overflow-x-hidden">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white border-r border-slate-200 z-50 transition-all duration-300 overflow-hidden">
+        <div class="p-6 flex items-center space-x-3 mb-8">
+            <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white flex-shrink-0 shadow-lg shadow-indigo-100">
+                <i class="fas fa-briefcase text-xl"></i>
+            </div>
+            <span class="text-xl font-bold font-poppins sidebar-text">SmartJob</span>
+        </div>
+
+        <nav class="px-4 space-y-2">
+            <a href="dashboard.html" class="flex items-center space-x-3 px-4 py-3 bg-indigo-50 text-indigo-600 rounded-xl font-bold transition-all group">
+                <i class="fas fa-th-large w-6 text-center"></i>
+                <span class="sidebar-text">Dashboard</span>
+            </a>
+            <a href="users.html" class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-indigo-600 rounded-xl font-medium transition-all group">
+                <i class="fas fa-users w-6 text-center group-hover:text-indigo-600"></i>
+                <span class="sidebar-text">Users</span>
+            </a>
+            <a href="data-management.html" class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-indigo-600 rounded-xl font-medium transition-all group">
+                <i class="fas fa-database w-6 text-center group-hover:text-indigo-600"></i>
+                <span class="sidebar-text">Data Mgmt</span>
+            </a>
+            <a href="analytics.html" class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-indigo-600 rounded-xl font-medium transition-all group">
+                <i class="fas fa-chart-pie w-6 text-center group-hover:text-indigo-600"></i>
+                <span class="sidebar-text">Analytics</span>
+            </a>
+            <div class="pt-4 pb-2 px-4 text-xs font-bold text-slate-400 uppercase tracking-widest sidebar-text">Personal</div>
+            <a href="profile.html" class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-indigo-600 rounded-xl font-medium transition-all group">
+                <i class="fas fa-user-circle w-6 text-center group-hover:text-indigo-600"></i>
+                <span class="sidebar-text">My Profile</span>
+            </a>
+            <a href="index.html" class="flex items-center space-x-3 px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl font-medium transition-all group">
+                <i class="fas fa-sign-out-alt w-6 text-center"></i>
+                <span class="sidebar-text">Logout</span>
+            </a>
+        </nav>
+
+        <!-- Sidebar Collapse Toggle (Desktop) -->
+        <button id="sidebar-toggle" class="absolute bottom-6 left-1/2 -translate-x-1/2 w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-500 hover:bg-indigo-600 hover:text-white transition-all shadow-sm">
+            <i class="fas fa-chevron-left transition-transform duration-300"></i>
+        </button>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main id="main-content" class="ml-64 min-h-screen transition-all duration-300">
+        <!-- Top Navbar -->
+        <header class="h-20 bg-white border-b border-slate-200 sticky top-0 z-40 px-8 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-xl font-bold font-poppins text-slate-800">Overview</h1>
+                <div class="hidden md:flex items-center px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl">
+                    <i class="fas fa-search text-slate-400 mr-3"></i>
+                    <input type="text" placeholder="Search anything..." class="bg-transparent focus:outline-none text-sm font-medium">
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <!-- NEW COMPLAINT BUTTON (Modified) -->
+                <button class="hidden lg:flex items-center space-x-2 px-6 py-2.5 bg-indigo-50 text-indigo-600 rounded-xl font-bold border border-indigo-100 hover:bg-indigo-600 hover:text-white transition-all shadow-sm" data-modal-target="newComplaintModal">
+                    <i class="fas fa-plus text-xs"></i>
+                    <span>New Complaint</span>
+                </button>
+
+                <!-- Notifications -->
+                <button class="relative w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-500 hover:text-indigo-600 transition-colors border border-slate-200 group">
+                    <i class="fas fa-bell"></i>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white group-hover:animate-ping"></span>
+                </button>
+
+                <!-- Profile Dropdown -->
+                <div class="relative">
+                    <button id="profile-dropdown-btn" class="flex items-center space-x-3 p-1 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-200">
+                        <img src="https://i.pravatar.cc/150?u=12" class="w-10 h-10 rounded-xl object-cover shadow-md" alt="Avatar">
+                        <div class="hidden md:block text-left">
+                            <p class="text-sm font-bold text-slate-800">My Account</p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">User</p>
+                        </div>
+                        <i class="fas fa-chevron-down text-slate-400 text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="p-8 space-y-8 animate-fadeIn">
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Stat Card 1 -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl hover:shadow-indigo-50 transition-all group">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 text-xl group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-slate-500 font-bold text-sm uppercase tracking-widest">Total Tickets</h3>
+                    <p class="text-3xl font-extrabold text-slate-900 mt-1">12</p>
+                </div>
+
+                <!-- Stat Card 2 -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl hover:shadow-indigo-50 transition-all group">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-orange-600 text-xl group-hover:bg-orange-600 group-hover:text-white transition-all">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-slate-500 font-bold text-sm uppercase tracking-widest">Pending</h3>
+                    <p class="text-3xl font-extrabold text-slate-900 mt-1">8</p>
+                </div>
+
+                <!-- Stat Card 3 -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl hover:shadow-indigo-50 transition-all group">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-green-50 rounded-2xl flex items-center justify-center text-green-600 text-xl group-hover:bg-green-600 group-hover:text-white transition-all">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-slate-500 font-bold text-sm uppercase tracking-widest">Resolved</h3>
+                    <p class="text-3xl font-extrabold text-slate-900 mt-1">4</p>
+                </div>
+            </div>
+
+            <!-- Lower Section: Recent Tickets -->
+            <div class="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-sm">
+                <div class="flex items-center justify-between mb-8">
+                    <h3 class="text-xl font-bold font-poppins text-slate-800">My Recent Complaints</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b border-slate-100">
+                                <th class="pb-4 font-bold text-slate-400 text-xs uppercase tracking-widest">Ticket Title</th>
+                                <th class="pb-4 font-bold text-slate-400 text-xs uppercase tracking-widest">Description</th>
+                                <th class="pb-4 font-bold text-slate-400 text-xs uppercase tracking-widest">Status</th>
+                            </tr>
+                        </thead>
+						<tbody id="complaintsTableBody" class="divide-y divide-slate-50">
+						    <!-- Real tickets will be injected here by JavaScript! -->
+						</tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- NEW COMPLAINT MODAL (Modified from Add User) -->
+    <div id="newComplaintModal" class="modal-overlay hidden flex items-center justify-center p-4 fixed inset-0 bg-slate-900/50 z-50">
+        <div class="bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl animate-fadeIn overflow-hidden">
+            <div class="p-8 border-b border-slate-100 flex items-center justify-between">
+                <h3 class="text-2xl font-bold font-poppins text-slate-800">Submit Ticket</h3>
+                <button class="text-slate-400 hover:text-slate-600 transition-colors" data-modal-close>
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-8">
+                <!-- HERE IS THE MAGIC FORM CONNECTION -->
+                <form action="/submit-complaint" method="POST" class="space-y-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-slate-700">Complaint Title</label>
+                        <!-- name="title" is required by Spring Boot! -->
+                        <input type="text" name="title" placeholder="Brief subject of your issue" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium" required>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-slate-700">Detailed Description</label>
+                        <!-- name="description" is required by Spring Boot! -->
+                        <textarea name="description" rows="4" placeholder="Describe your issue in detail..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium" required></textarea>
+                    </div>
+                    <div class="pt-4 flex items-center space-x-4">
+                        <button type="button" class="flex-1 px-6 py-4 bg-slate-100 text-slate-600 rounded-2xl font-bold hover:bg-slate-200 transition-all" data-modal-close>Cancel</button>
+                        <button type="submit" class="flex-1 px-6 py-4 btn-gradient text-white rounded-2xl font-bold shadow-xl shadow-indigo-100">Submit Ticket</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/script.js"></script>
+    <script>
+        // Simple script to make the modal open and close
+        document.querySelectorAll('[data-modal-target]').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-modal-target');
+                document.getElementById(target).classList.remove('hidden');
+            });
+        });
+
+        document.querySelectorAll('[data-modal-close]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.target.closest('.modal-overlay').classList.add('hidden');
+            });
+        });
+
+        // ------------------------------------------------------------------
+        // THE MISSING MAGIC: Fetch complaints and put them in the table!
+        // ------------------------------------------------------------------
+        fetch('/api/my-complaints')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('complaintsTableBody');
+                tableBody.innerHTML = ''; // Clear loading state
+                
+                if(data.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="3" class="py-4 text-center text-slate-500 font-bold">No complaints found. Create one above!</td></tr>';
+                    return;
+                }
+
+                data.forEach(ticket => {
+                    // Choose color based on status
+                    let statusColor = ticket.status === 'Pending' ? 'orange' : 'green';
+                    
+                    const row = `
+                        <tr>
+                            <td class="py-4 font-bold text-slate-800">${ticket.title}</td>
+                            <td class="py-4 text-slate-500 text-sm font-medium">${ticket.description}</td>
+                            <td class="py-4">
+                                <span class="bg-${statusColor}-50 text-${statusColor}-600 px-3 py-1 rounded-lg text-xs font-bold">${ticket.status}</span>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            })
+            .catch(error => console.error("Error fetching data:", error));
+    </script>
+</body>
+</html>

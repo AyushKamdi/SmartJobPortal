@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - SmartJob</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#6366f1', secondary: '#a855f7' },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], poppins: ['Poppins', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 font-sans h-screen flex items-center justify-center overflow-hidden">
+
+    <div class="w-full h-full flex flex-col md:flex-row-reverse">
+        <!-- Right Side: Illustration & Branding -->
+        <div class="hidden md:flex md:w-1/2 btn-gradient p-12 flex-col justify-between text-white relative overflow-hidden">
+            <div class="relative z-10 text-right">
+                <a href="index.html" class="flex items-center justify-end space-x-2">
+                    <span class="text-2xl font-bold font-poppins">SmartJob</span>
+                    <div class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center text-white">
+                        <i class="fas fa-briefcase text-xl"></i>
+                    </div>
+                </a>
+            </div>
+
+            <div class="relative z-10 space-y-6 max-w-md ml-auto text-right">
+                <h1 class="text-5xl font-extrabold font-poppins leading-tight">Start Your Career Journey Today.</h1>
+                <p class="text-indigo-100 text-lg leading-relaxed">
+                    Join thousands of professionals finding their dream roles through AI-powered skill matching.
+                </p>
+            </div>
+
+            <div class="relative z-10 flex items-center justify-end space-x-4">
+                <span class="text-sm font-medium text-indigo-100">Trusted by top tech companies globally</span>
+                <div class="flex -space-x-2">
+                    <img src="https://i.pravatar.cc/100?u=7" class="w-8 h-8 rounded-full border-2 border-white/20">
+                    <img src="https://i.pravatar.cc/100?u=8" class="w-8 h-8 rounded-full border-2 border-white/20">
+                    <img src="https://i.pravatar.cc/100?u=9" class="w-8 h-8 rounded-full border-2 border-white/20">
+                </div>
+            </div>
+
+            <!-- Background Shapes -->
+            <div class="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full -ml-48 -mt-48 blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-indigo-900/20 rounded-full -mr-48 -mb-48 blur-3xl"></div>
+        </div>
+
+        <!-- Left Side: Register Form -->
+        <div class="w-full md:w-1/2 bg-white flex items-center justify-center p-8 md:p-16 overflow-y-auto">
+            <div class="max-w-md w-full space-y-8 animate-fadeIn">
+                <div class="text-center md:text-left">
+                    <h2 class="text-3xl font-extrabold text-slate-900 font-poppins">Create Account</h2>
+                    <p class="text-slate-500 mt-2">Join us and discover your next big opportunity</p>
+                </div>
+
+               
+					
+					<form action="/register" method="POST" class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <label for="fname" class="text-sm font-bold text-slate-700">First Name</label>
+                            <input type="text" id="fname" name="fname" placeholder="John" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium" required>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="lname" class="text-sm font-bold text-slate-700">Last Name</label>
+                            <input type="text" id="lname" name="lname" placeholder="Doe" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium" required>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="email" class="text-sm font-bold text-slate-700">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="john@example.com" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium" required>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="role" class="text-sm font-bold text-slate-700">I am a...</label>
+                        <select id="role" name="role" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium cursor-pointer">
+                            <option value="seeker">Job Seeker</option>
+                            <option value="employer">Employer</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="password" class="text-sm font-bold text-slate-700">Password</label>
+                        <input type="password" id="password" name="password" placeholder="••••••••" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium" required>
+                    </div>
+
+                    <div class="flex items-center">
+                        <input type="checkbox" id="terms" class="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500" required>
+                        <label for="terms" class="ml-2 text-sm font-medium text-slate-600">I agree to the <a href="#" class="text-indigo-600 hover:text-indigo-500 font-bold">Terms of Service</a> and <a href="#" class="text-indigo-600 hover:text-indigo-500 font-bold">Privacy Policy</a></label>
+                    </div>
+
+                    <button type="submit" class="w-full btn-gradient text-white py-4 rounded-xl font-bold shadow-xl shadow-indigo-200 flex items-center justify-center space-x-2">
+                        <span>Sign Up</span>
+                        <i class="fas fa-user-plus"></i>
+                    </button>
+                </form>
+
+                <div class="relative flex items-center py-2">
+                    <div class="flex-grow border-t border-slate-200"></div>
+                    <span class="flex-shrink mx-4 text-slate-400 text-sm">or sign up with</span>
+                    <div class="flex-grow border-t border-slate-200"></div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <button class="flex items-center justify-center space-x-2 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors font-semibold text-slate-700">
+                        <i class="fab fa-google text-red-500"></i>
+                        <span>Google</span>
+                    </button>
+                    <button class="flex items-center justify-center space-x-2 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors font-semibold text-slate-700">
+                        <i class="fab fa-github text-slate-900"></i>
+                        <span>GitHub</span>
+                    </button>
+                </div>
+
+                <p class="text-center text-slate-600 font-medium pb-4">
+                    Already have an account? <a href="login.html" class="text-indigo-600 hover:text-indigo-500 font-bold">Sign In</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
