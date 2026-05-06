@@ -18,16 +18,16 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User registerUser(User user) {
-        // 1. Hash the password before saving! Never save plain text passwords.
+       
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
 
-        // 2. Set a default role if none is provided.
+       
         if (user.getRole() == null || user.getRole().isEmpty()) {
             user.setRole("ROLE_USER"); 
         }
 
-        // 3. Save the user to the database using the repository.
+       
         return userRepository.save(user);
     }
 
