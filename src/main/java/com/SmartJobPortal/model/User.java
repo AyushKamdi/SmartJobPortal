@@ -20,7 +20,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    // This will help us distinguish between regular users, admins, and technicians later
     @Column(nullable = false)
     private String role;
 
