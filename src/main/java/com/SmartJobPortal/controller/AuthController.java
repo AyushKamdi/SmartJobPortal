@@ -14,16 +14,16 @@ public class AuthController {
 	@Autowired
     private UserService userService;
 
-    // This catches the data when the user clicks "Register"
+  
     @PostMapping("/register")
     public String registerNewUser(@ModelAttribute User user) {
         
     	user.setUsername(user.getEmail());
     	
-        // Save the user to the database
+        
         userService.registerUser(user);
         
-        // Redirect them to the login page after successful registration
+        
         return "redirect:/dashboard.html"; 
     }
 	
