@@ -18,7 +18,7 @@ public class ComplaintController {
     @Autowired
     private ComplaintRepository complaintRepository;
 
-    // --- 1. THE SUBMIT METHOD (You already have this, it works perfectly!) ---
+   
     @PostMapping("/submit-complaint")
     public String submitComplaint(@ModelAttribute Complaint complaint, Principal principal) {
         complaint.setSubmittedBy(principal.getName());
@@ -26,12 +26,11 @@ public class ComplaintController {
         return "redirect:/dashboard.html";
     }
 
-    // --- 2. THE NEW FETCH METHOD ---
-    // This secretly sends the database data to your HTML page when it asks for it!
+
     @GetMapping("/api/my-complaints")
     @ResponseBody
     public List<Complaint> getMyComplaints(Principal principal) {
-        // Find all complaints submitted by the logged-in user
+       
         return complaintRepository.findBySubmittedBy(principal.getName());
     }
 }
